@@ -1,0 +1,11 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Manrope', sans-serif;
+    background-color: #22143d;
+    color: #cbc3d0;
+}
+
+nav{
+    border-bottom: .15px groove #cbc3d0;
+}
