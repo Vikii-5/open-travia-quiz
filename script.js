@@ -1,8 +1,7 @@
-let generateBtn = document.getElementById("generate");
+let baseURL = `https://opentdb.com/api.php?`;
+let btn = document.getElementById("generate");
 
-generateBtn.addEventListener("click", function (event) {
-  "use strict";
-
+btn.addEventListener("click", function () {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll(".needs-validation");
 
@@ -15,34 +14,8 @@ generateBtn.addEventListener("click", function (event) {
           event.preventDefault();
           event.stopPropagation();
         } else {
-          let amount = document.getElementById("amount");
-          let category = document.getElementById("category");
-          let difficulty = document.getElementById("difficulty");
-          let type = document.getElementById("type");
-
-          let baseURL = `https://opentdb.com/api.php?`;
-
-          if (amount.value !== "") {
-            baseURL += `${amount.name}=${amount.value}&`;
-            return baseURL;
-          }
-
-          if (category.value !== "") {
-            baseURL += `${category.name}=${category.value}&`;
-            return baseURL;
-          }
-
-          if (difficulty.value !== "") {
-            baseURL += `${difficulty.name}=${difficulty.value}&`;
-            return baseURL;
-          }
-
-          if (type.value !== "") {
-            baseURL += `${type.name}=${type.value}&`;
-            return baseURL;
-          }
-
-          console.log(baseURL.slice(0, -1));
+          event.preventDefault();
+          generateAPI();
         }
 
         form.classList.add("was-validated");
@@ -50,6 +23,48 @@ generateBtn.addEventListener("click", function (event) {
       false
     );
   });
-  
 });
 
+const generateAPI = () => {
+  let amount = document.getElementById("amount");
+  let category = document.getElementById("category");
+  let difficulty = document.getElementById("difficulty");
+  let type = document.getElementById("type");
+
+  if (amount.value !== "") {
+    baseURL += `${amount.name}=${amount.value}&`;
+  }
+
+  if (category.value !== "") {
+    baseURL += `${category.name}=${category.value}&`;
+  }
+
+  if (difficulty.value !== "") {
+    baseURL += `${difficulty.name}=${difficulty.value}&`;
+  }
+
+  if (type.value !== "") {
+    baseURL += `${type.name}=${type.value}&`;
+  }
+
+  document.getElementById('quiz-form').reset();
+
+  let url = baseURL.slice(0, -1);
+  return fetchQuiz(url);
+}
+
+const fetchQuiz = url => {
+  fetch(url)
+    .then(response => response.json())
+    .then(data => showQuestion(data.results));
+}
+
+const showQuestion = questions => {
+
+  questions.forEach(question => {
+
+    console.log(question);
+
+  })
+
+}
