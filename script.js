@@ -1,7 +1,14 @@
 let baseURL = `https://opentdb.com/api.php?`;
-let btn = document.getElementById("generate");
+let playbtn = document.getElementById("play");
+let resetbtn = document.getElementById("reset");
 
-btn.addEventListener("click", function () {
+let mainContainer = document.getElementById("main-container");
+let quizContainer = document.createElement("div");
+quizContainer.setAttribute("id", "quiz-container");
+quizContainer.className = "row justify-content-around";
+mainContainer.appendChild(quizContainer);
+
+playbtn.addEventListener("click", function () {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.querySelectorAll(".needs-validation");
 
@@ -25,8 +32,7 @@ btn.addEventListener("click", function () {
   });
 });
 
-
-// function for generating the api endpoint for users configuration 
+// function for generating the api endpoint for users configuration
 const generateAPI = () => {
   let amount = document.getElementById("amount");
   let category = document.getElementById("category");
@@ -49,51 +55,44 @@ const generateAPI = () => {
     baseURL += `${type.name}=${type.value}&`;
   }
 
-  document.getElementById('quiz-form').reset();
-
   let url = baseURL.slice(0, -1);
+  console.log(url);
   return fetchQuiz(url);
-}
+};
 
 // function to fetch the data for user configured api url
-const fetchQuiz = url => {
+const fetchQuiz = (url) => {
   fetch(url)
-    .then(response => response.json())
-    .then(data => showQuiz(data.results))
-    .catch(err => console.log(err));
-}
+    .then((response) => response.json())
+    .then((data) => showQuiz(data.results))
+    .catch((err) => console.log(err));
+};
 
-const showQuiz = quizzes => {
-
-  let mainContainer = document.getElementById('main-container');
-  let quizContainer = document.createElement("div");
-  quizContainer.className = 'row gx-5 p-4';
-  mainContainer.appendChild(quizContainer);
-
-  quizzes.forEach(quiz => {
-
-    let qaContainer = document.createElement('div');
-    qaContainer.setAttribute('id', 'qa-container');
-    qaContainer.className = 'col-sm-12 col-lg-6'
+// function to display the question and choices
+const showQuiz = (quizzes) => {
+  quizzes.forEach((quiz) => {
+    let qaContainer = document.createElement("div");
+    qaContainer.setAttribute("id", "qa-container");
+    qaContainer.className = "col-sm-12 col-lg-6";
     quizContainer.appendChild(qaContainer);
 
-    let typeContainer = document.createElement('div');
-    typeContainer.setAttribute('id', 'type-container');
+    let typeContainer = document.createElement("div");
+    typeContainer.setAttribute("id", "type-container");
     qaContainer.appendChild(typeContainer);
 
-    let category = document.createElement('small');
-    category.className = 'category';
-    category.innerText = `Category: ${quiz.category}`
+    let category = document.createElement("small");
+    category.className = "category";
+    category.innerText = `Category: ${quiz.category}`;
     typeContainer.appendChild(category);
 
-    let difficulty = document.createElement('small');
-    difficulty.className = 'difficulty';
+    let difficulty = document.createElement("small");
+    difficulty.className = "difficulty";
     difficulty.innerText = `Difficulty: ${quiz.difficulty}`;
     typeContainer.appendChild(difficulty);
 
-    let question = document.createElement('p');
-    question.className = 'question';
-    question.innerText = `${quiz.question}`
+    let question = document.createElement("p");
+    question.className = "question";
+    question.innerText = `${quiz.question}`;
     qaContainer.appendChild(question);
 
     let correctAns = quiz.correct_answer;
@@ -101,29 +100,39 @@ const showQuiz = quizzes => {
     let choices = quiz.incorrect_answers;
     choices.splice(Math.floor(Math.random() * 3), 0, correctAns);
 
-    choices.forEach( choice => {
-      
-      let choiceText = document.createElement('span');
-      choiceText.className = 'choice-text';
-      choiceText.innerText = `${choice}`
-      qaContainer.appendChild(choiceText)
+    choices.forEach((choice) => {
+      let choiceText = document.createElement("span");
+      choiceText.className = "choice-text";
+      choiceText.innerText = `${choice}`;
+      qaContainer.appendChild(choiceText);
 
-      choiceText.onclick = validateAnswer;
-
-    })
+      // adding click event to choices to get select Answer and compare that with correct answer
+      choiceText.addEventListener("click", function (event) {
+        console.log(event.target.innerText);
+        let selectedAnswer = event.target.innerText;
+        if (selectedAnswer === correctAns) {
+          console.log("correct Answer:" + correctAns);
+          qaContainer.classList.add("right-glow");
+          qaContainer.innerHTML = `
+          <div class='correct-feedback'>
+            <p>Well Done!!! Correct Answer</p>
+          </div>`;
+        } else {
+          console.log("Answer is wrong. correct Answer:" + correctAns);
+          qaContainer.classList.add("wrong-glow");
+          qaContainer.innerHTML = `
+          <div class='wrong-feedback'>
+            <p>Uh-Oh!!! Wrong Answer. Correct Answer is ${correctAns}</p>
+          </div>`;
+        }
+      });
+    });
 
     console.log(quiz);
-    
+  });
+};
 
-  })
-
-}
-
-const validateAnswer = (event) => {
-  
-  console.log(event.target.innerText);
-  console.log(correctAns)
-  let selectedAnswer = event.target.innerText;
-
-  
-}
+// reloads the quiz
+resetbtn.addEventListener("click", function () {
+  window.location.reload();
+});

@@ -24,19 +24,19 @@
 
     <div id="main-container" class="container">
         <div class="row">
-          <h1 class="text-center">Game of Knowledge</h1>
-          <h5 class="text-center">Config Your Own Open Travia Quiz</h5>
+          <h1 class="text-center heading">Game of Knowledge</h1>
+          <h5 class="text-center sub-heading">Config Your Own Open Travia Quiz</h5>
         </div>
 
         <form id="quiz-form" class="row needs-validation" novalidate>
-          <div class="col-sm-6 col-lg-3">
+          <div class="col-sm-6 col-lg-3 mb-4">
             <label for="amount" class="form-label">Amount*</label>
             <input type="number" id="amount" class="form-control" name="amount" min="1" max="50" required placeholder="Enter the amount of questions">
             <div class="invalid-feedback">
               Please enter the number between 1 - 50
             </div>
           </div>
-          <div class="col-sm-6 col-lg-3">
+          <div class="col-sm-6 col-lg-3 mb-4">
             <label for="category" class="form-label">Category</label>
             <select id="category" class="form-select" name="category" aria-label="Select Category">
               <option value="" selected>Any Category</option>
@@ -61,7 +61,7 @@
               <option value="27">Animals</option>
             </select>
           </div>
-          <div class="col-sm-6 col-lg-3">
+          <div class="col-sm-6 col-lg-3 mb-4">
             <label for="difficulty" class="form-label">Difficulty</label>
             <select id="difficulty" class="form-select" name="difficulty" aria-label="Select Difficulty">
               <option value="" selected>Any Difficulty</option>
@@ -70,7 +70,7 @@
               <option value="hard">Hard</option>
             </select>
           </div>
-          <div class="col-sm-6 col-lg-3">
+          <div class="col-sm-6 col-lg-3 mb-4">
             <label for="type" class="form-label">Type</label>
             <select id="type" class="form-select" name="type" aria-label="Select Difficulty">
               <option value="" selected>Any Type</option>
@@ -78,8 +78,9 @@
               <option value="boolean">True / False</option>
             </select>
           </div>
-          <div class="col-md-12 d-flex justify-content-center">
-            <button type="submit" id="generate" class="btn btn-outline-light">Let's Play!</button>
+          <div class="col-md-12 d-flex justify-content-center buttons">
+            <button type="submit" id="play" class="btn btn-outline-light">Let's Play!</button>
+            <button type="reset" id="reset" class="btn btn-outline-light">Reset Quiz!</button>
           </div>
         </form>
     </div>
