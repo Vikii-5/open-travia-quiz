@@ -9,3 +9,51 @@ body{
 nav{
     border-bottom: .15px groove #cbc3d0;
 }
+
+#qa-container {
+    border: 1px solid #cbc3d0;
+    border-radius: .5rem;
+    padding: 2rem;
+}
+
+#type-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.category, .difficulty {
+    font-size: .85rem;
+    text-transform: capitalize;
+}
+
+.question {
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+}
+
+.choice-text {
+    display: flex;
+    flex-direction: column;
+    padding: .75rem;
+    margin-top: .75rem;
+    border: 1px solid #cbc3d0;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+.choice-text:hover {
+    animation: zoom 1s ease infinite;
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.05, 1.05);
+    }
+    100%{
+        transform: scale(1, 1);
+    }
+}

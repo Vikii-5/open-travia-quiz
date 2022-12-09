@@ -25,6 +25,8 @@ btn.addEventListener("click", function () {
   });
 });
 
+
+// function for generating the api endpoint for users configuration 
 const generateAPI = () => {
   let amount = document.getElementById("amount");
   let category = document.getElementById("category");
@@ -53,18 +55,69 @@ const generateAPI = () => {
   return fetchQuiz(url);
 }
 
+// function to fetch the data for user configured api url
 const fetchQuiz = url => {
   fetch(url)
     .then(response => response.json())
-    .then(data => showQuestion(data.results));
+    .then(data => showQuiz(data.results))
+    .catch(err => console.log(err));
 }
 
-const showQuestion = questions => {
+const showQuiz = quizzes => {
 
-  questions.forEach(question => {
+  let mainContainer = document.getElementById('main-container');
+  let quizContainer = document.createElement("div");
+  quizContainer.className = 'row gx-5 p-4';
+  mainContainer.appendChild(quizContainer);
 
-    console.log(question);
+  quizzes.forEach(quiz => {
+
+    console.log(quiz);
+
+    let qaContainer = document.createElement('div');
+    qaContainer.setAttribute('id', 'qa-container');
+    qaContainer.className = 'col-sm-12 col-lg-6'
+    quizContainer.appendChild(qaContainer);
+
+    let typeContainer = document.createElement('div');
+    typeContainer.setAttribute('id', 'type-container');
+    qaContainer.appendChild(typeContainer);
+
+    let category = document.createElement('small');
+    category.className = 'category';
+    category.innerText = `Category: ${quiz.category}`
+    typeContainer.appendChild(category);
+
+    let difficulty = document.createElement('small');
+    difficulty.className = 'difficulty';
+    difficulty.innerText = `Difficulty: ${quiz.difficulty}`;
+    typeContainer.appendChild(difficulty);
+
+    let question = document.createElement('p');
+    question.className = 'question';
+    question.innerText = `${quiz.question}`
+    qaContainer.appendChild(question);
+
+    let correctAns = quiz.correct_answer;
+
+    let choices = quiz.incorrect_answers;
+    choices.splice(Math.floor(Math.random() * 3), 0, correctAns);
+
+    choices.forEach( choice => {
+      
+      let choiceText = document.createElement('span');
+      choiceText.className = 'choice-text';
+      choiceText.innerText = `${choice}`
+      qaContainer.appendChild(choiceText)
+
+    })
+
+
+
+    console.log(quiz);
 
   })
 
 }
+
+
