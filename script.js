@@ -3,6 +3,16 @@ let playbtn = document.getElementById("play");
 let resetbtn = document.getElementById("reset");
 
 let mainContainer = document.getElementById("main-container");
+
+let loader = document.createElement("div");
+loader.className = "lds-ripple";
+mainContainer.appendChild(loader);
+let inner1 = document.createElement("div");
+loader.appendChild(inner1);
+let inner2 = document.createElement("div");
+loader.appendChild(inner2);
+loader.style.display = "none";
+
 let quizContainer = document.createElement("div");
 quizContainer.setAttribute("id", "quiz-container");
 quizContainer.className = "row justify-content-around";
@@ -23,6 +33,7 @@ playbtn.addEventListener("click", function () {
         } else {
           event.preventDefault();
           generateAPI();
+          loader.style.display = "inline-block";
         }
 
         form.classList.add("was-validated");
@@ -105,6 +116,8 @@ const showQuiz = (quizzes) => {
       choiceText.className = "choice-text";
       choiceText.innerText = `${choice}`;
       qaContainer.appendChild(choiceText);
+    
+    loader.style.display ='none';
 
       // adding click event to choices to get select Answer and compare that with correct answer
       choiceText.addEventListener("click", function (event) {

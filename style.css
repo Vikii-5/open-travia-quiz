@@ -12,6 +12,7 @@ nav{
     margin-bottom: 3rem;
 }
 
+/* title elements */
 .heading{
     font-size: 2.8rem;
     font-weight: bold;
@@ -22,6 +23,7 @@ nav{
     font-size: 1.4rem;
 }
 
+/* quiz elements */
 #quiz-form{
     margin-top: 2rem;
 }
@@ -65,20 +67,6 @@ nav{
     box-shadow: 0px 0px 40px 2px rgba(255,50,248,0.4);
 }
 
-@media screen and (max-width: 992px) {
-    .heading {
-        font-size: 2.2rem;
-    }
-
-    .sub-heading {
-        font-size: 1.1rem;
-    }
-
-    #qa-container{
-        width: 98%;
-    }
-}
-
 #type-container {
     display: flex;
     justify-content: space-between;
@@ -120,3 +108,96 @@ nav{
         transform: scale(1, 1);
     }
 }
+
+/* loader */
+.lds-ripple {
+    /* display: inline-block; */
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ripple div {
+    position: absolute;
+    border: 4px solid #34e2fc;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+  .lds-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+  }
+  @keyframes lds-ripple {
+    0% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    4.9% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+    5% {
+      top: 36px;
+      left: 36px;
+      width: 0;
+      height: 0;
+      opacity: 1;
+    }
+    100% {
+      top: 0px;
+      left: 0px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    .heading {
+        font-size: 2.2rem;
+    }
+
+    .sub-heading {
+        font-size: 1.1rem;
+    }
+
+    #qa-container{
+        width: 98%;
+    }
+
+    .lds-ripple{
+        top: 60%;
+    }
+}
+
+@media screen and (max-width:576px) {
+    .lds-ripple{
+        top: 80%;
+        left: 40%;
+    }
+
+    .title{
+        margin-bottom: 1.5rem;
+    }
+
+    #quiz-form {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    #quiz-form > div {
+        margin-bottom: .75rem;
+    }
+
+    .buttons {
+        margin-top: 1rem;
+    }
+}
+  
