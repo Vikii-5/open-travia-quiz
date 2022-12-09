@@ -72,8 +72,6 @@ const showQuiz = quizzes => {
 
   quizzes.forEach(quiz => {
 
-    console.log(quiz);
-
     let qaContainer = document.createElement('div');
     qaContainer.setAttribute('id', 'qa-container');
     qaContainer.className = 'col-sm-12 col-lg-6'
@@ -110,14 +108,22 @@ const showQuiz = quizzes => {
       choiceText.innerText = `${choice}`
       qaContainer.appendChild(choiceText)
 
+      choiceText.onclick = validateAnswer;
+
     })
 
-
-
     console.log(quiz);
+    
 
   })
 
 }
 
+const validateAnswer = (event) => {
+  
+  console.log(event.target.innerText);
+  console.log(correctAns)
+  let selectedAnswer = event.target.innerText;
 
+  
+}
